@@ -367,12 +367,11 @@ def machineCommandGasOut():
     if is_ok :
         while checkLoop :
 	        print(i)
-
 	        print(c.is_open)
-            i = i + 1
-            regs = c.read_holding_registers(0, 0x65 )
+            # i = i + 1
+            regs = c.read_holding_registers(0, 0x65)
             print("reg ad #0 to 9: "+str(regs))
-	   # regs = c.read_holding_registers(0, 0x65 )
+	        # regs = c.read_holding_registers(0, 0x65 )
             if regs:
 	            print(regs[100])
                 # c.close()
@@ -475,7 +474,7 @@ def machineCommandGasIn():
 
 
 if __name__ == "__main__":
-    app.run(host= "192.168.250.59" ,debug=True , port=5000)
+    app.run(host= "172.20.10.3" ,debug=True , port=5000)
     #app.run(host="192.168.250.12" ,debug=True , port=5000)
 
     # app.run(debug=True , port=5000)

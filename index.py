@@ -36,14 +36,33 @@ local_ip = socket.gethostbyname(hostname)
 
  
 
+@app.route("/test" , methods = ['GET'])
+def testX():
+    print("api => machine/command/get/statusCommand/gasOut") 
+    x =  [0,0,0,0,0,0,0,0,0,0,1]
+    print(x[10])
 
+    checkLoop = True
+        
+    # check status gasIn
+    while checkLoop :
+        # regs = c.read_holding_registers(0, 0x65 )
+        print(1)
+        checkLoop = False
+        time.sleep(5)
+
+    return jsonify({ 
+        "status": "error",
+        "statusCode": 200 ,
+        "data" : x
+    })  
 
 @app.route("/machine/command/gasInOut" , methods = ['POST'])
 def machineCommandGetGasInOut():
     print("api => machine/command/get/statusCommand/gasInOut") 
     if c.is_open():        
         command_str_0 = 0
-        command_str_1 = 0
+        command_str_1 = 1
         coil_number_1 = command_str_1                  
         is_ok = c.write_single_coil(command_str_0,coil_number_1)
         print(is_ok)
@@ -82,7 +101,7 @@ def machineCommandGetGasInOut():
             # Gas out
             checkLoop = True
             if checkIn == False :
-                command_str_0 = 0
+                command_str_0 = 1
                 command_str_1 = 1
                 is_ok = c.write_single_coil(command_str_0,coil_number_1)
                 # keep Gas tank
@@ -287,7 +306,7 @@ def machineCommandGasIn():
 
 
 if __name__ == "__main__":
-    app.run(host= "172.20.10.4" ,debug=True , port=5000)
+    app.run(host= "172.20.10.3" ,debug=True , port=5000)
     #app.run(host="192.168.250.12" ,debug=True , port=5000)
 
     # app.run(debug=True , port=5000)
