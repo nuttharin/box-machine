@@ -14,8 +14,8 @@ import socket
 
 app = Flask(__name__)
 api = Api(app)
-# c = ModbusClient(host=getIpPLC(),port=getPortPLC(),auto_open=True)
-# c1 = ModbusClient(host=getIpPLC(),port=getPortPLC(),auto_open=True)
+c = ModbusClient(host=getIpPLC(),port=getPortPLC(),auto_open=True)
+c1 = ModbusClient(host=getIpPLC(),port=getPortPLC(),auto_open=True)
 is_ok = True
  
 coil_return = 0
@@ -287,7 +287,7 @@ def machineCommandGasIn():
 
 
 if __name__ == "__main__":
-    app.run(host= "192.168.250.10" ,debug=True , port=5000)
+    app.run(host= "172.20.10.4" ,debug=True , port=5000)
     #app.run(host="192.168.250.12" ,debug=True , port=5000)
 
     # app.run(debug=True , port=5000)
