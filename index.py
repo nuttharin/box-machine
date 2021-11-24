@@ -212,7 +212,7 @@ def machineCommandGasIn():
 @app.route("/machine/command/gasInOut" , methods = ['POST'])
 def machineCommandGetGasInOut():
     print("api => machine/command/get/statusCommand/gasInOut") 
-    order_id =  request.json['order_id']
+    # order_id =  request.json['order_id']
     if c.is_open():        
         command_str_0 = 1
         command_str_1 = 1
