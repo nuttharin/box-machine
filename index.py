@@ -209,6 +209,8 @@ def machineCommandGasOut():
                     "data" : "can't connect PLC"
                 })
             x= x+1
+            print("x")
+            print(x)
     return jsonify({ 
         "status": "success",
         "statusCode": 201 ,
