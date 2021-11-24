@@ -287,7 +287,7 @@ def machineCommandGetGasInOut():
                         print(regs[101])
                         if regs:
                             if regs[101] == 0 :
-                                # Gas Out success
+                                # Gas Out successs
                                 checkIn = False
                                 step4 = 1
                                 checkLoop = False                    
