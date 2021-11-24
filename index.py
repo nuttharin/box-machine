@@ -65,74 +65,148 @@ def machineCommandGasOut():
     command_str_0 = request.json['command_str_0']
     command_str_1 = request.json['command_str_1']
     order_id =  request.json['order_id']
+    quality = request.json['quality']
+    if quality == 1 :
 
-    # coil_number_1 = command_str_1
-    # is_ok = c.write_single_coil(0,1)
-    is_ok = c.write_single_coil(command_str_0,command_str_1)
-    c.close()
-    # print(c.is_open)
-    checkLoop = True
-    step1 = 0
-    step2 = 0            
-    # print(is_ok)
-    # print(c.is_open)
-    # print(c1.is_open)
-    i = 1
-    if is_ok :
-        while checkLoop :
-	        # print(i)
-            # i = i + 1
-	        # print(c.is_open)
-            regs = c.read_holding_registers(0, 0x66 )
-            # print("reg ad #0 to 9: "+str(regs))
-	        # regs = c.read_holding_registers(0, 0x65 )
-            if regs:
-	            # print(regs[100])
-                # c.close()
-                if regs[100] == 1 :
-       	            print("100 = 1")
-                    checkIn = True
-                    step1 = 1
-                    checkLoop = False                    
-                else :
-                    time.sleep(7)
-        time.sleep(20)
+        # coil_number_1 = command_str_1
+        # is_ok = c.write_single_coil(0,1)
+        is_ok = c.write_single_coil(command_str_0,command_str_1)
+        c.close()
+        # print(c.is_open)
         checkLoop = True
-        if step1 == 1 :
+        step1 = 0
+        step2 = 0            
+        # print(is_ok)
+        # print(c.is_open)
+        # print(c1.is_open)
+        i = 1
+        if is_ok :
             while checkLoop :
+                # print(i)
+                # i = i + 1
+                # print(c.is_open)
                 regs = c.read_holding_registers(0, 0x66 )
-                if regs :
-                    print(regs[101])
+                # print("reg ad #0 to 9: "+str(regs))
+                # regs = c.read_holding_registers(0, 0x65 )
+                if regs:
+                    # print(regs[100])
                     # c.close()
-                    if regs[100] == 0 :
-                        print("100 = 0")
+                    if regs[100] == 1 :
+                        print("100 = 1")
                         checkIn = True
-                        step2 = 1
-                        checkLoop = False
+                        step1 = 1
+                        checkLoop = False                    
                     else :
-                        time.sleep(7 )
-                else :
-                    return jsonify({ 
-                        "status": "error",
-                        "statusCode": 200 ,
-                        "data" : "can't connect PLC read_holding_registers "
-                    })
+                        time.sleep(7)
+            time.sleep(20)
+            checkLoop = True
+            if step1 == 1 :
+                while checkLoop :
+                    regs = c.read_holding_registers(0, 0x66 )
+                    if regs :
+                        print(regs[101])
+                        # c.close()
+                        if regs[100] == 0 :
+                            print("100 = 0")
+                            checkIn = True
+                            step2 = 1
+                            checkLoop = False
+                        else :
+                            time.sleep(7 )
+                    else :
+                        return jsonify({ 
+                            "status": "error",
+                            "statusCode": 200 ,
+                            "data" : "can't connect PLC read_holding_registers "
+                        })
+            
+            if step1 == 1 and step2 == 1 :     
+                print("success")
+                return jsonify({ 
+                    "status": "success",
+                    "statusCode": 201 ,
+                    "data" : "command complete"              
+                })
         
-        if step1 == 1 and step2 == 1 :     
-            print("success")
+        else :
+            print("no success")
             return jsonify({ 
-                "status": "success",
-                "statusCode": 201 ,
-                "data" : "command complete"              
+                "status": "error",
+                "statusCode": 200 ,
+                "data" : "can't connect PLC"
             })
-    
     else :
-        print("no success")
-        return jsonify({ 
-            "status": "error",
-            "statusCode": 200 ,
-            "data" : "can't connect PLC"
-        })
+        x = 0
+        while x < quality-1 :
+            # coil_number_1 = command_str_1
+            # is_ok = c.write_single_coil(0,1)
+            is_ok = c.write_single_coil(command_str_0,command_str_1)
+            c.close()
+            # print(c.is_open)
+            checkLoop = True
+            step1 = 0
+            step2 = 0            
+            # print(is_ok)
+            # print(c.is_open)
+            # print(c1.is_open)
+            i = 1
+            if is_ok :
+                while checkLoop :
+                    # print(i)
+                    # i = i + 1
+                    # print(c.is_open)
+                    regs = c.read_holding_registers(0, 0x66 )
+                    # print("reg ad #0 to 9: "+str(regs))
+                    # regs = c.read_holding_registers(0, 0x65 )
+                    if regs:
+                        # print(regs[100])
+                        # c.close()
+                        if regs[100] == 1 :
+                            print("100 = 1")
+                            checkIn = True
+                            step1 = 1
+                            checkLoop = False                    
+                        else :
+                            time.sleep(7)
+                time.sleep(20)
+                checkLoop = True
+                if step1 == 1 :
+                    while checkLoop :
+                        regs = c.read_holding_registers(0, 0x66 )
+                        if regs :
+                            print(regs[101])
+                            # c.close()
+                            if regs[100] == 0 :
+                                print("100 = 0")
+                                checkIn = True
+                                step2 = 1
+                                checkLoop = False
+                            else :
+                                time.sleep(7 )
+                        else :
+                            return jsonify({ 
+                                "status": "error",
+                                "statusCode": 200 ,
+                                "data" : "can't connect PLC read_holding_registers "
+                            })
+                
+                if step1 == 1 and step2 == 1 :     
+                    print("success")
+                    return jsonify({ 
+                        "status": "success",
+                        "statusCode": 201 ,
+                        "data" : "command complete"              
+                    })
+            
+            else :
+                print("no success")
+                return jsonify({ 
+                    "status": "error",
+                    "statusCode": 200 ,
+                    "data" : "can't connect PLC"
+                })
+            x= x+1
+
       
 @app.route("/machine/command/gasIn" , methods = ['POST'])
 def machineCommandGasIn():
