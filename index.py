@@ -193,13 +193,13 @@ def machineCommandGasOut():
                                 "data" : "can't connect PLC read_holding_registers "
                             })
                 
-                if step1 == 1 and step2 == 1 :     
-                    print("success")
-                    return jsonify({ 
-                        "status": "success",
-                        "statusCode": 201 ,
-                        "data" : "command complete"              
-                    })
+                # if step1 == 1 and step2 == 1 :     
+                #     print("success")
+                #     return jsonify({ 
+                #         "status": "success",
+                #         "statusCode": 201 ,
+                #         "data" : "command complete"              
+                #     })
             
             else :
                 print("no success")
@@ -209,6 +209,11 @@ def machineCommandGasOut():
                     "data" : "can't connect PLC"
                 })
             x= x+1
+    return jsonify({ 
+        "status": "success",
+        "statusCode": 201 ,
+        "data" : "command complete"              
+    })
 
       
 @app.route("/machine/command/gasIn" , methods = ['POST'])
