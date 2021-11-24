@@ -66,8 +66,9 @@ def machineCommandGasOut():
     command_str_1 = request.json['command_str_1']
     order_id =  request.json['order_id']
     quality = request.json['quality']
+    print(quality)
     if quality == 1 :
-
+        print("111111")
         # coil_number_1 = command_str_1
         # is_ok = c.write_single_coil(0,1)
         is_ok = c.write_single_coil(command_str_0,command_str_1)
@@ -136,6 +137,7 @@ def machineCommandGasOut():
                 "data" : "can't connect PLC"
             })
     else :
+        print("else")
         x = 0
         while x < quality-1 :
             # coil_number_1 = command_str_1
