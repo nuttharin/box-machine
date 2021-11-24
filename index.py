@@ -57,101 +57,7 @@ def testX():
         "data" : x
     })  
 
-@app.route("/machine/command/gasInOut" , methods = ['POST'])
-def machineCommandGetGasInOut():
-    print("api => machine/command/get/statusCommand/gasInOut") 
-    if c.is_open():        
-        command_str_0 = 0
-        command_str_1 = 1
-        coil_number_1 = command_str_1                  
-        is_ok = c.write_single_coil(command_str_0,coil_number_1)
-        print(is_ok)
-        checkLoop = True
-        checkIn = False
-        step1 = 0
-        step2 = 0
-        step3 = 0
-        step4 = 0
-        if is_ok :
-            # check status gasIn
-            while checkLoop :
-                regs = c.read_holding_registers(0, 0x65 )
-                if regs[101] == 1 :
-		            # print("101=1")
-                    checkIn = True
-                    step1 = 1
-                    checkLoop = False                    
-                else :
-                    time.sleep(5)
-            # wait Gas In
-            time.sleep(20)
-            checkLoop = True
-            if checkIn == True :
-                while checkLoop :
-                    regs = c.read_holding_registers(0, 0x66 )
-                    if regs[102] == 1 :
-			           
-                        # GasIn Success
-                        print("102=1")
-                        checkIn = False
-                        step2 = 1
-                        checkLoop = False                    
-                    else :
-                        time.sleep(5)
-            # Gas out
-            checkLoop = True
-            if checkIn == False :
-                command_str_0 = 1
-                command_str_1 = 1
-                is_ok = c.write_single_coil(command_str_0,coil_number_1)
-                # keep Gas tank
-                while checkLoop :
-                    regs = c.read_holding_registers(0, 0x65 )
-                    if regs[101] == 1 :
-                        # keepping Gas tank
-                        checkIn = True
-                        step3 = 1
-                        checkLoop = False                    
-                    else :
-                        time.sleep(5)
-                time.sleep(20)
-                checkLoop = True
-                if checkIn == True :
-                    while checkLoop :
-                        regs = c.read_holding_registers(0, 0x66 )
-                        if regs[102] == 1 :
-                            # Gas Out success
-                            checkIn = False
-                            step4 = 1
-                            checkLoop = False                    
-                        else :
-                            time.sleep(5)
-            if step1 == 1 and step2 == 1 and step3 == 1 and step4 == 1 :
-                print("success")
-                return jsonify({ 
-                    "status": "error",
-                    "statusCode": 201 ,
-                    "data" : ""
-                })
 
-        else :
-            print("no success")
-
-            return jsonify({ 
-                "status": "error",
-                "statusCode": 200 ,
-                "data" : "can't connect PLC (is_ok)"
-            })
-   
-
-    else :
-
-        print("no success")
-        return jsonify({ 
-            "status": "error",
-            "statusCode": 200 ,
-            "data" : "can't connect PLC"
-        })
 
 @app.route("/machine/command/gasOut" , methods = ['POST'])
 def machineCommandGasOut():
@@ -303,7 +209,96 @@ def machineCommandGasIn():
             "data" : "can't connect PLC"
         })
 
-
+@app.route("/machine/command/gasInOut" , methods = ['POST'])
+def machineCommandGetGasInOut():
+    print("api => machine/command/get/statusCommand/gasInOut") 
+    order_id =  request.json['order_id']
+    if c.is_open():        
+        command_str_0 = 1
+        command_str_1 = 1
+        coil_number_1 = command_str_1                  
+        is_ok = c.write_single_coil(command_str_0,coil_number_1)
+        print(is_ok)
+        checkLoop = True
+        checkIn = False
+        step1 = 0
+        step2 = 0
+        step3 = 0
+        step4 = 0
+        if is_ok :# check status gasIn
+            while checkLoop :
+                regs = c.read_holding_registers(0, 0x65 )
+                if regs[101] == 1 :
+		            # print("101=1")
+                    checkIn = True
+                    step1 = 1
+                    checkLoop = False                    
+                else :
+                    time.sleep(5)
+            # wait Gas In
+            time.sleep(20)
+            checkLoop = True
+            if checkIn == True :
+                while checkLoop :
+                    regs = c.read_holding_registers(0, 0x66 )
+                    if regs[102] == 1 :
+			           
+                        # GasIn Success
+                        print("102=1")
+                        checkIn = False
+                        step2 = 1
+                        checkLoop = False                    
+                    else :
+                        time.sleep(5)
+            # Gas out
+            checkLoop = True
+            if checkIn == False :
+                command_str_0 = 0
+                command_str_1 = 1
+                is_ok = c.write_single_coil(command_str_0,coil_number_1)
+                # keep Gas tank
+                while checkLoop :
+                    regs = c.read_holding_registers(0, 0x65 )
+                    if regs[101] == 1 :
+                        # keepping Gas tank
+                        checkIn = True
+                        step3 = 1
+                        checkLoop = False                    
+                    else :
+                        time.sleep(5)
+                time.sleep(20)
+                checkLoop = True
+                if checkIn == True :
+                    while checkLoop :
+                        regs = c.read_holding_registers(0, 0x66 )
+                        if regs[102] == 1 :
+                            # Gas Out success
+                            checkIn = False
+                            step4 = 1
+                            checkLoop = False                    
+                        else :
+                            time.sleep(5)
+            if step1 == 1 and step2 == 1 and step3 == 1 and step4 == 1 :
+                print("success")
+                return jsonify({ 
+                    "status": "error",
+                    "statusCode": 201 ,
+                    "data" : ""
+                })
+        else :
+            print("no success")
+            return jsonify({ 
+                "status": "error",
+                "statusCode": 200 ,
+                "data" : "can't connect PLC (is_ok)"
+            })  
+    else :
+        print("no success")
+        return jsonify({ 
+            "status": "error",
+            "statusCode": 200 ,
+            "data" : "can't connect PLC"
+        })
 
 if __name__ == "__main__":
     app.run(host= "172.20.10.4" ,debug=True , port=5000)
