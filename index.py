@@ -230,8 +230,8 @@ def machineCommandGetGasInOut():
             while checkLoop :
                 regs = c.read_holding_registers(0, 0x66 )
                 if regs:
-                    if regs[101] == 1 :
-                        # print("101=1")
+                    if regs[100] == 1 :
+                        print("100=1")
                         checkIn = True
                         step1 = 1
                         checkLoop = False                    
@@ -244,9 +244,9 @@ def machineCommandGetGasInOut():
                 while checkLoop :
                     regs = c.read_holding_registers(0, 0x66 )
                     if regs:
-                        if regs[102] == 1 :                        
+                        if regs[100] == 0 :                        
                             # GasIn Success
-                            print("102=1")
+                            print("100=0")
                             checkIn = False
                             step2 = 1
                             checkLoop = False                    
@@ -262,7 +262,7 @@ def machineCommandGetGasInOut():
                 while checkLoop :
                     regs = c.read_holding_registers(0, 0x66 )
                     if regs:
-                        if regs[101] == 1 :
+                        if regs[100] == 1 :
                             # keepping Gas tank
                             checkIn = True
                             step3 = 1
@@ -275,7 +275,7 @@ def machineCommandGetGasInOut():
                     while checkLoop :
                         regs = c.read_holding_registers(0, 0x66 )
                         if regs:
-                            if regs[102] == 1 :
+                            if regs[100] == 0 :
                                 # Gas Out success
                                 checkIn = False
                                 step4 = 1
