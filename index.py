@@ -139,7 +139,7 @@ def machineCommandGasOut():
     else :
         print("else")
         x = 0
-        while x < quality-1 :
+        while x < quality :
             # coil_number_1 = command_str_1
             # is_ok = c.write_single_coil(0,1)
             is_ok = c.write_single_coil(command_str_0,command_str_1)
@@ -212,7 +212,7 @@ def machineCommandGasOut():
             x= x+1
             print("x")
             print(x)
-            
+
     return jsonify({ 
         "status": "success",
         "statusCode": 201 ,
