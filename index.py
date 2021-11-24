@@ -228,7 +228,7 @@ def machineCommandGetGasInOut():
         step4 = 0
         if is_ok :# check status gasIn
             while checkLoop :
-                regs = c.read_holding_registers(0, 0x65 )
+                regs = c.read_holding_registers(0, 0x66 )
                 if regs:
                     if regs[101] == 1 :
                         # print("101=1")
@@ -260,7 +260,7 @@ def machineCommandGetGasInOut():
                 is_ok = c.write_single_coil(command_str_0,coil_number_1)
                 # keep Gas tank
                 while checkLoop :
-                    regs = c.read_holding_registers(0, 0x65 )
+                    regs = c.read_holding_registers(0, 0x66 )
                     if regs:
                         if regs[101] == 1 :
                             # keepping Gas tank
