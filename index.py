@@ -149,7 +149,7 @@ def machineCommandGasIn():
     checkLoop = True
     step1 = 0
     step2 = 0            
-    # print(is_ok)
+    print(is_ok)
     # print(c.is_open)
     # print(c1.is_open)
     i = 1
@@ -159,10 +159,11 @@ def machineCommandGasIn():
             # i = i + 1
 	        # print(c.is_open)
             regs = c.read_holding_registers(0, 0x66 )
-            # print("reg ad #0 to 9: "+str(regs))
+            print("reg ad #0 to 9: "+str(regs))
 	        # regs = c.read_holding_registers(0, 0x65 )
             if regs:
-	            # print(regs[100])
+	            print(regs[100])
+                print(regs[101])
                 # c.close()
                 if regs[101] == 1 :
        	            print("101 = 1")
@@ -177,6 +178,7 @@ def machineCommandGasIn():
             while checkLoop :
                 regs = c.read_holding_registers(0, 0x66 )
                 if regs :
+                    print(regs[100])
                     print(regs[101])
                     # c.close()
                     if regs[101] == 0 :
