@@ -233,8 +233,8 @@ def machineCommandGetGasInOut():
                 print(regs[101])
                 print("-------")
                 if regs:
-                    if regs[100] == 1 :
-                        print("100=1")
+                    if regs[101] == 1 :
+                        print("101=1")
                         checkIn = True
                         step1 = 1
                         checkLoop = False                    
@@ -272,7 +272,7 @@ def machineCommandGetGasInOut():
                         # print(regs[101])
                         # print("-------")
                     if regs:
-                        if regs[100] == 1 :
+                        if regs[101] == 1 :
                             # keepping Gas tank
                             checkIn = True
                             step3 = 1
