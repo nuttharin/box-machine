@@ -157,9 +157,9 @@ def machineCommandGetGasInOut():
 def machineCommandGasOut():
     print("api => /machine/command/gasOut") 
     command_str_0 = request.json['command_str_0']
-    # command_str_0  = request.json['command_str_0'] if request.json['command_str_0'] is not None else ""
     command_str_1 = request.json['command_str_1']
     order_id =  request.json['order_id']
+
     # coil_number_1 = command_str_1
     # is_ok = c.write_single_coil(0,1)
     is_ok = c.write_single_coil(command_str_0,command_str_1)
@@ -177,14 +177,14 @@ def machineCommandGasOut():
 	        # print(i)
             # i = i + 1
 	        # print(c.is_open)
-            regs = c.read_holding_registers(0, 0x65 )
+            regs = c.read_holding_registers(0, 0x66 )
             # print("reg ad #0 to 9: "+str(regs))
 	        # regs = c.read_holding_registers(0, 0x65 )
             if regs:
 	            # print(regs[100])
                 # c.close()
                 if regs[100] == 1 :
-       	            print("101=1")
+       	            print("100 = 1")
                     checkIn = True
                     step1 = 1
                     checkLoop = False                    
@@ -199,7 +199,7 @@ def machineCommandGasOut():
                     print(regs[101])
                     # c.close()
                     if regs[100] == 0 :
-                        print("101=0")
+                        print("100 = 0")
                         checkIn = True
                         step2 = 1
                         checkLoop = False
@@ -259,7 +259,7 @@ def machineCommandGasIn():
 	            # print(regs[100])
                 # c.close()
                 if regs[100] == 1 :
-       	            print("101=1")
+       	            print("100 = 1")
                     checkIn = True
                     step1 = 1
                     checkLoop = False                    
@@ -274,7 +274,7 @@ def machineCommandGasIn():
                     print(regs[101])
                     # c.close()
                     if regs[100] == 0 :
-                        print("101=0")
+                        print("100 = 0")
                         checkIn = True
                         step2 = 1
                         checkLoop = False
