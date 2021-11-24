@@ -213,9 +213,8 @@ def machineCommandGasIn():
 def machineCommandGetGasInOut():
     print("api => machine/command/get/statusCommand/gasInOut") 
     # order_id =  request.json['order_id']
-    is_ok = c.write_single_coil(command_str_0,command_str_1)
-    c.close()
-    if is_ok:        
+    
+    if True:        
         command_str_0 = 1
         command_str_1 = 1
         coil_number_1 = command_str_1                  
