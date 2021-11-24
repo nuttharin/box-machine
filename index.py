@@ -161,7 +161,8 @@ def machineCommandGasOut():
                     # print("reg ad #0 to 9: "+str(regs))
                     # regs = c.read_holding_registers(0, 0x65 )
                     if regs:
-                        # print(regs[100])
+                        print(regs[100])
+                        print(regs[101])
                         # c.close()
                         if regs[100] == 1 :
                             print("100 = 1")
