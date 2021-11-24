@@ -215,7 +215,7 @@ def machineCommandGetGasInOut():
     # order_id =  request.json['order_id']
     
     if True:        
-        command_str_0 = 1
+        command_str_0 = 0
         command_str_1 = 1
         coil_number_1 = command_str_1                  
         is_ok = c.write_single_coil(command_str_0,coil_number_1)
@@ -262,7 +262,7 @@ def machineCommandGetGasInOut():
             print("in")
             checkLoop = True
             if checkIn == False :
-                command_str_0 = 0
+                command_str_0 = 1
                 command_str_1 = 1
                 is_ok = c.write_single_coil(command_str_0,coil_number_1)
                 # keep Gas tank
