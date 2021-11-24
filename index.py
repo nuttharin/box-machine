@@ -229,7 +229,9 @@ def machineCommandGetGasInOut():
         if is_ok :# check status gasIn
             while checkLoop :
                 regs = c.read_holding_registers(0, 0x66 )
+                print(regs[100])
                 print(regs[101])
+                print("-------")
                 if regs:
                     if regs[100] == 1 :
                         print("100=1")
@@ -244,17 +246,20 @@ def machineCommandGetGasInOut():
             if checkIn == True :
                 while checkLoop :
                     regs = c.read_holding_registers(0, 0x66 )
-                    print(regs[101])
+                        print(regs[100])
+                        print(regs[101])
+                        print("-------")
                     if regs:
-                        if regs[100] == 0 :                        
+                        if regs[101] == 0 :                        
                             # GasIn Success
-                            print("100=0")
+                            print("101=0")
                             checkIn = False
                             step2 = 1
                             checkLoop = False                    
                         else :
                             time.sleep(5)
             # Gas out
+            print("in")
             checkLoop = True
             if checkIn == False :
                 command_str_0 = 0
@@ -263,7 +268,9 @@ def machineCommandGetGasInOut():
                 # keep Gas tank
                 while checkLoop :
                     regs = c.read_holding_registers(0, 0x66 )
-                    print(regs[101])
+                        print(regs[100])
+                        print(regs[101])
+                        print("-------")
                     if regs:
                         if regs[100] == 1 :
                             # keepping Gas tank
@@ -279,7 +286,7 @@ def machineCommandGetGasInOut():
                         regs = c.read_holding_registers(0, 0x66 )
                         print(regs[101])
                         if regs:
-                            if regs[100] == 0 :
+                            if regs[101] == 0 :
                                 # Gas Out success
                                 checkIn = False
                                 step4 = 1
