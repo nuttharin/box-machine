@@ -164,8 +164,8 @@ def machineCommandGasIn():
             if regs:
 	            # print(regs[100])
                 # c.close()
-                if regs[100] == 1 :
-       	            print("100 = 1")
+                if regs[101] == 1 :
+       	            print("101 = 1")
                     checkIn = True
                     step1 = 1
                     checkLoop = False                    
@@ -179,8 +179,8 @@ def machineCommandGasIn():
                 if regs :
                     print(regs[101])
                     # c.close()
-                    if regs[100] == 0 :
-                        print("100 = 0")
+                    if regs[101] == 0 :
+                        print("101 = 0")
                         checkIn = True
                         step2 = 1
                         checkLoop = False
@@ -234,7 +234,7 @@ def machineCommandGetGasInOut():
                 print("-------")
                 if regs:
                     if regs[100] == 1 :
-                        print("101=1")
+                        print("100=1")
                         checkIn = True
                         step1 = 1
                         checkLoop = False                    
@@ -252,7 +252,7 @@ def machineCommandGetGasInOut():
                     if regs:
                         if regs[100] == 0 :                        
                             # GasIn Success
-                            print("101=0")
+                            print("100=0")
                             checkIn = False
                             step2 = 1
                             checkLoop = False                    
