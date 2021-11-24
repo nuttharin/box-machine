@@ -233,7 +233,7 @@ def machineCommandGetGasInOut():
                 print(regs[101])
                 print("-------")
                 if regs:
-                    if regs[101] == 1 :
+                    if regs[100] == 1 :
                         print("101=1")
                         checkIn = True
                         step1 = 1
@@ -250,7 +250,7 @@ def machineCommandGetGasInOut():
                         # print(regs[101])
                         # print("-------")
                     if regs:
-                        if regs[101] == 0 :                        
+                        if regs[100] == 0 :                        
                             # GasIn Success
                             print("101=0")
                             checkIn = False
