@@ -192,7 +192,8 @@ def machineCommandGasOut():
                                 "statusCode": 200 ,
                                 "data" : "can't connect PLC read_holding_registers "
                             })
-                
+                # if step2 = 1  
+
                 # if step1 == 1 and step2 == 1 :     
                 #     print("success")
                 #     return jsonify({ 
@@ -211,6 +212,7 @@ def machineCommandGasOut():
             x= x+1
             print("x")
             print(x)
+            
     return jsonify({ 
         "status": "success",
         "statusCode": 201 ,
