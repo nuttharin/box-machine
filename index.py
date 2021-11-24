@@ -228,28 +228,29 @@ def machineCommandGetGasInOut():
         if is_ok :# check status gasIn
             while checkLoop :
                 regs = c.read_holding_registers(0, 0x65 )
-                if regs[101] == 1 :
-		            # print("101=1")
-                    checkIn = True
-                    step1 = 1
-                    checkLoop = False                    
-                else :
-                    time.sleep(5)
+                if regs:
+                    if regs[101] == 1 :
+                        # print("101=1")
+                        checkIn = True
+                        step1 = 1
+                        checkLoop = False                    
+                    else :
+                        time.sleep(5)
             # wait Gas In
             time.sleep(20)
             checkLoop = True
             if checkIn == True :
                 while checkLoop :
                     regs = c.read_holding_registers(0, 0x66 )
-                    if regs[102] == 1 :
-			           
-                        # GasIn Success
-                        print("102=1")
-                        checkIn = False
-                        step2 = 1
-                        checkLoop = False                    
-                    else :
-                        time.sleep(5)
+                    if regs:
+                        if regs[102] == 1 :                        
+                            # GasIn Success
+                            print("102=1")
+                            checkIn = False
+                            step2 = 1
+                            checkLoop = False                    
+                        else :
+                            time.sleep(5)
             # Gas out
             checkLoop = True
             if checkIn == False :
@@ -259,25 +260,27 @@ def machineCommandGetGasInOut():
                 # keep Gas tank
                 while checkLoop :
                     regs = c.read_holding_registers(0, 0x65 )
-                    if regs[101] == 1 :
-                        # keepping Gas tank
-                        checkIn = True
-                        step3 = 1
-                        checkLoop = False                    
-                    else :
-                        time.sleep(5)
+                    if regs:
+                        if regs[101] == 1 :
+                            # keepping Gas tank
+                            checkIn = True
+                            step3 = 1
+                            checkLoop = False                    
+                        else :
+                            time.sleep(5)
                 time.sleep(20)
                 checkLoop = True
                 if checkIn == True :
                     while checkLoop :
                         regs = c.read_holding_registers(0, 0x66 )
-                        if regs[102] == 1 :
-                            # Gas Out success
-                            checkIn = False
-                            step4 = 1
-                            checkLoop = False                    
-                        else :
-                            time.sleep(5)
+                        if regs:
+                            if regs[102] == 1 :
+                                # Gas Out success
+                                checkIn = False
+                                step4 = 1
+                                checkLoop = False                    
+                            else :
+                                time.sleep(5)
             if step1 == 1 and step2 == 1 and step3 == 1 and step4 == 1 :
                 print("success")
                 return jsonify({ 
